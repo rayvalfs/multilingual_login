@@ -1,0 +1,730 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Start of prototype by Ray, Shan & Dami.">
+    <title>VeraChain 프로토 타입 V0.2 15-Feb-2020 &ndash; Prototype</title>    
+    <link rel="stylesheet"
+         href="https://unpkg.com/purecss@1.0.1/build/pure-min.css"
+         integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/grids-responsive-min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="./css/main_stylesheet.css">
+
+    <link rel="stylesheet" href="./css/modal_popup.css">
+
+
+<!--[if lt IE 9]>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<![endif]-->
+
+<link rel="stylesheet" href="./css/responsive_table.css">
+
+<style>
+    .padded_2em { padding: 2em; }
+    .home-menu {  x-background-color: #1fd68d; background-color: #1f868d;  }
+
+</style>
+
+<!--
+<script type="text/javascript" src="../mustache.min.js"></script>
+-->
+<script>
+
+          function headerChangeLanguage() {
+            //var x = localStorage.getItem('language');
+            //document.getElementById("selected-language-label").innerHTML = "현재 언어는 " + x;
+
+            var y = document.getElementById("header-language-selection-input").value;
+            localStorage.setItem('language',y );
+            //window.location.href("verachain_" + x + ".html");
+            window.location.replace("verachain_" + y.split(' ')[0] + ".html");
+          }
+
+            function getSelectedLanguage(){
+              var x = localStorage.getItem('language');
+              //document.getElementById("language-from-storage").innerHTML = '((' + x + ' ))';
+              var y = x.split(' ')[2];
+              if(y)
+                document.getElementById("selected-language-label").innerHTML = "현재 언어는 " + y;
+            }
+            
+          function changeSelectedLanguage() {
+            //var x = localStorage.getItem('language');
+            //document.getElementById("selected-language-label").innerHTML = "현재 언어는 " + x;
+
+            var y = document.getElementById("language-selection-input").value;
+            localStorage.setItem('language',y );
+            //window.location.href("verachain_" + x + ".html");
+            window.location.replace("verachain_" + y.split(' ')[0] + ".html");
+          }
+</script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<!--
+<script type="text/javascript" src="./javascript/remediation_sources.js"></script>
+-->
+<script>
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Source');
+        data.addColumn('number', 'Amount');
+        data.addRows([
+          ['심기', 3],
+          ['스크러빙', 1],
+          ['재생 가능', 1],
+          ['기타', 1],
+          ['축소', 2]
+        ]);
+
+        // Set chart options
+        var options = {'title':'치료 소스',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('remediation_piechart_div'));
+        chart.draw(data, options);
+      }
+
+    
+
+</script>
+ 
+
+<!-- -----------------[ CHART: ENERGY CONSUMPTION TIME OF DAY ] ----------------- -->
+
+<!--
+<script type="text/javascript" src="./javascript/bar_chart.js"></script>
+-->
+
+<script type="text/javascript">
+
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawColColors);
+
+function drawColColors() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('timeofday', '시간');
+      data.addColumn('number', '오늘');
+      data.addColumn('number', '평균');
+      data.addRows([
+        [{v: [8, 0, 0], f: '0800h'}, 4, 2.25],  
+        [{v: [9, 0, 0], f: '0900h'},  7, 4], 
+        [{v: [10, 0, 0], f:'1000h'}, 3, 1], 
+        [{v: [11, 0, 0], f: '1100h'}, 1, .25], 
+        [{v: [12, 0, 0], f: '1200h'}, 5, 2.25], 
+        [{v: [13, 0, 0], f: '1300h'}, 2, .5], 
+        [{v: [14, 0, 0], f: '1400h'}, 7, 4], 
+        [{v: [15, 0, 0], f: '1500h'}, 9, 7.5], 
+        [{v: [16, 0, 0], f: '1600h'}, 8, 5.25],  
+        [{v: [17, 0, 0], f: '1700h'}, 10, 10], 
+      ]); 
+
+      var options = {
+        title: '에너지 소비 (오늘 대 평균)',
+        colors: ['#9575cd', '#33ac71'],
+        hAxis: {
+          title: '시간',
+          format: 'h:mm a',
+          viewWindow: {
+            min: [7, 30, 0],
+            max: [17, 30, 0]
+          }
+        },
+        vAxis: {
+          title: '소비 (1 ~ 10의 척도)'
+        }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('column_chart_div'));
+      chart.draw(data, options);
+}
+
+</script>
+<!-- -----------------[ SCRIPT for Korea Map ] ----------------- -->
+<!--
+<script type='text/javascript' src="./javascript/korea_map.js"></script>
+-->
+
+<!-- -----------------[ Pie Chart: Amount of Emissions ] ----------------- -->
+
+ <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          [ '소스',
+              '배출량'
+              ],
+          ['공장',     11], 
+          ['사업',      2],
+          ['차',  2],
+          ['농장', 2],
+          ['다른',    7]
+        ]);
+
+        var options = {
+          title: '배출원',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donut_chart'));
+        chart.draw(data, options);
+      }
+</script>
+
+
+<!-- -----------------[ Script for DIsplaying KOREA MAP] ----------------- -->
+
+<script>
+// Initialize and add the map
+  function initMap() 
+  {
+    // The location of Busan
+    var seoul = { lat: 37.566536, lng: 126.977966};
+    var busan = { lat: 35.097000, lng:129.008102 };
+    // The map, centered at Uluru
+    var map = new google.maps.Map(
+        document.getElementById('korea_map'), {zoom: 8, center: busan}
+        );
+    // The marker, positioned at Busan
+    var marker = new google.maps.Marker({position: busan, map: map});
+  }
+</script>
+
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    <script async defer
+    -->
+
+    <!--
+
+ <script>
+      var view = {
+        //name : "Joe", occupation : "Web Developer",
+        header_title: "Changwon CCS"
+      };
+
+      function load_template(){
+        //var output = Mustache.render(" is a  ", view);
+        //document.getElementById('person').innerHTML = output;
+        var output = Mustache.render("VeraChain 프로토 타입 V0.2 15-Feb-2020", view);
+        document.getElementById('header_title_id').innerHTML = output;        
+      }
+</script>
+-->
+
+<!-- -----------------[ Google Analytics ] ----------------- -->
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-41480445-1', 'purecss.io');
+    ga('send', 'pageview');
+    </script>
+</head>
+
+<!-- ====================[[ BODY Start ]]===================== -->
+
+<body onload="getSelectedLanguage()" >
+
+
+
+<!-- -----------------[ HEADER ] ----------------- -->
+
+
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="" id="header_title_id">VeraChain 카본 마켓 </a>
+<!--
+        <select id="language-selection-input" onchange="changeSelectedLanguage()">
+          <option value="none" disabled selected>언어를 선택하십시오 -- select language</option>
+          <option value="English - English">English</option>
+          <option value="Chinese - 中文">Chinese - 中文</option>
+          <option value="Korean - 한국어">Korean - 한국어</option>
+          <option value="Spanish - Español">Spanish - Español</option>
+        </select>
+-->
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link"></a></li>
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link">정보</a></li>
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link">로그인</a></li>
+        </ul>
+    </div>
+
+</div>
+
+<!-- -----------------[ SPLASH ] ----------------- -->
+<style>
+.language-selection-form {
+  width: 100%;
+  padding: 8px 4px;
+  margin: auto;
+  x-border: none;
+  x-border-radius: 4px;
+  x-background-color: #f1f1f1;
+  x-background-color: #4477aa;
+  background-color: #5588bb;
+
+}
+
+.splash-body {
+    color: white;
+    x-letter-spacing: 0.05em;
+    x-opacity: 0.8;
+}
+
+.language-selection-input { color:#1f566d;}
+
+.splash-vert-spacer {
+padding-top: 2em;
+x-padding-bottom: 2em;
+}
+
+@media (max-width: 60em) {
+  .splash-vert-spacer { display:none;}
+}
+
+</style>
+
+
+<div class="splash-container">
+    <div class="splash">
+        <h1 class="splash-head">환영합니다</h1>
+  
+        <p class="splash-subhead">VeraChain 탄소 배출 관리 시스템에 오신 것을 환영합니다 </p>
+        <p>
+            <a href="#login-modal" class="pure-button pure-button-primary">로그인</a>
+        </p>
+
+      <div class="splash-vert-spacer">&nbsp;</div>
+
+      <div class="language-selection-form" >
+        <span id="language-selection-label" style="color:#ccf">
+         언어를 &nbsp;
+        </span>
+          <select id="language-selection-input" onchange="changeSelectedLanguage()">
+            <option value="none" disabled selected>언어를 선택하십시오 -- select language</option>
+            <option value="English - English">English</option>
+            <option value="Chinese - 中文">Chinese - 中文</option>
+            <option value="Korean - 한국어">Korean - 한국어</option>
+            <option value="Spanish - Español">Spanish - Español</option>
+            <option value="French - Français">French - Français</option>
+            <option value="Japanese - 日本語">Japanese - 日本語</option>
+            <option value="Russian -русский">Russian - русский</option>
+          </select>
+           <span id="selected-language-label" style="color:#ccf"> 현재 언어는 한국어</span>
+      </div>
+
+ <div id="login-modal" class="modal-window">
+    <div>
+      <a href="#login-modal-close" title="Close" class="modal-close">close &times;</a>
+      <h2>VeraChain에 오신 것을 환영합니다</h2>
+      <p>
+          시간이 지남에 따라 더 기능적인 프로토 타입으로 발전하는 진행중인 대화식 모형입니다.
+      </p>
+      <a href="/" class="pure-menu-link">Back</a>
+      </script>
+
+
+
+  </div>
+</div>
+
+
+
+
+    </div>
+</div>
+
+<!-- -----------------[ DASHBOARD -- BAND #1 ] ----------------- -->
+
+<div class="content-wrapper">
+    <div class="content">
+
+        <h2 class="content-head is-center">탄소 거래 시스템 대시 보드
+        </h2>
+
+   <style>
+       /* Set the size of the div element that contains the map */
+      #korea_map {
+        height: 350px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+
+       #zoom_in_title {
+        font-size: 14px;
+       }
+    </style>
+
+
+
+<!-- -----------------[ Triple ] ----------------- -->
+
+  
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-1-3"> 
+    배출 믹스
+    <div id="donut_chart" x-style="width: 400px; height: 200px;"
+    style="width: 320px; height: 200px;">
+    </div>
+  </div>
+
+  <div class="pure-u-1 pure-u-md-1-3"> 
+    시설 위치 (한국)<br/>
+    <a href="#open-modal" style="clear:both">
+    <img src="/img/changwon-naver-map.png" style="width:200px;">
+    </a>
+    <div id="modal">
+       <!-- <div id="map_chart_div" style="width: 300px; height: 200px;"></div> -->
+
+        <a href="#open-modal" id="zoom_in_title">확대하다</a>
+
+    <div id="open-modal" class="modal-window">
+      <div>
+        <a href="#modal-close" title="Close" class="modal-close">close &times;</a>
+
+      <!-- -----------------[ Korea Map ] ----------------- -->
+        <div id="map_container">
+            <div id="korea_map"></div>    <!--The div element for the map -->
+        </div>
+
+        <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA24rJQspKtyBaeMVfFLT_pxDchizDteIY&callback=initMap"></script>
+        </script>
+        <!--        
+        <script 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApqW4-8iMFxjlyLpFpH4YdgqVGuiDXlRg&callback=initMap">
+      </script>
+    -->
+        <!--
+      <script 
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA24rJQspKtyBaeMVfFLT_pxDchizDteIY&callback=initMap">
+      </script>
+      -->
+      <!--
+      <script 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApqW4-8iMFxjlyLpFpH4YdgqVGuiDXlRg&callback=initMap">
+      </script>
+    -->
+
+  </div>
+</div>
+</div>
+</div>
+
+    <div class="pure-u-1 pure-u-md-1-3"> 에너지 소비 요약
+      <div id="column_chart_div"></div>
+    </div>
+</div>
+
+
+
+<!-- -----------------[ Trade Summary ] ----------------- -->
+
+	
+ <div id="responsive_table" class="padded_2em">
+        <h3 class="content-head is-center">최근 거래 요약
+        </h3>  
+<table>
+  <thead>
+    <tr>
+      <th>날짜 / 시간</th>
+      <th>구매 / 판매</th>
+      <th>엔티티 이름</th>
+      <th>금액</th>
+    </tr>
+    </thead>
+
+  <tbody>
+    <tr>
+      <td data-column="날짜 / 시간">2020-01-25 0800h</td>
+      <td data-column="구매 / 판매">구입</td>
+      <td data-column="엔티티 이름">General Motors Factory</td>
+      <td data-column="금액">2000</td>
+    </tr>
+    <tr>
+      <td data-column="날짜 / 시간">2020-01-26 0900h</td>
+      <td data-column="구매 / 판매">팔다</td>
+      <td data-column="엔티티 이름">General Motors Factory</td>
+      <td data-column="금액">1000</td>
+    </tr>
+    <tr>
+      <td data-column="날짜 / 시간">2020-01-27 1500h</td>
+      <td data-column="구매 / 판매">구입</td>
+      <td data-column="엔티티 이름">Hyundai</td>
+      <td data-column="금액">2500</td>
+    </tr>
+    <tr>
+      <td data-column="날짜 / 시간">2020-01-28 1000h</td>
+      <td data-column="구매 / 판매">팔다</td>
+      <td data-column="엔티티 이름">General Motors Factory</td>
+      <td data-column="금액">500</td>
+    </tr>
+    <tr>
+      <td data-column="날짜 / 시간">2020-01-29 1700h</td>
+      <td data-column="구매 / 판매">구입</td>
+      <td data-column="엔티티 이름">Samsung</td>
+      <td data-column="금액">2000</td>
+    </tr>
+    <tr>
+      <td data-column="날짜 / 시간">2020-02-01 1100h</td>
+      <td data-column="구매 / 판매">구입</td>
+      <td data-column="엔티티 이름">LG</td>
+      <td data-column="금액">3000</td>
+    </tr>
+  
+  </tbody>
+</table>
+</div>
+
+
+<!-- -----------------[ Tuple ] ----------------- -->
+<style>
+  .about_section {
+    x-background-color: #667766;
+    background-color: #607c96ff;
+    color: #bbcccc;
+    padding: 1em 2em 1em 2em;
+  }
+.about_section h2 {
+    color: #bbcccc;
+  }  
+</style>
+<div class="about_section">
+            <h2>Verachain 정보
+            </h2>
+            <p>
+                제안 된 탄소 거래 시스템의 대화 형 모형 인 진행중인 작업입니다.
+            </p>
+</div>
+
+<!--
+
+    <div class="ribbon l-box-lrg pure-g">
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
+        </div>
+    </div> 
+-->   
+
+<!-- -----------------[ Quadruple ] ----------------- -->
+
+
+        <h3 class="content-head is-center">필수 기능
+        </h3>  
+      
+        <div class="pure-g">
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+ 
+                <h3 class="content-subhead">
+                    <i class="fa fa-rocket"></i>
+                    보안 IOT 센서 네트워크
+                </h3>
+                <p>
+                  Verachain은 보안 장치 네트워크의 신뢰할 수있는 데이터에 의존합니다.
+                  </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-mobile"></i>
+                    사기 방지 패턴 인식
+                </h3>
+                <p>
+                  Verachain은 비정상적인 행동 패턴을 찾는 트랜잭션 결함을 모니터링합니다.
+                                  </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-th-large"></i>
+                    시장 시뮬레이션을 통한 검증
+                  </h3>
+                <p>
+                  Verachain의 토큰 경제 및 시장 모델은 공식 시뮬레이션 모델링 도구를 통해 테스트되었습니다.
+                                  </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                <h3 class="content-subhead">
+                    <i class="fa fa-check-square-o"></i>
+                    글로벌 ETS와의 상호 운용성
+                </h3>
+                <p>
+                  Verachain은 국가 및 글로벌 ETS 시스템과 상호 운용 할 수있는 지역 시장을 구현합니다.
+                                  </p>
+            </div>
+        </div>
+    </div>
+
+<!-- -----------------[ Tuple ] ----------------- -->
+
+
+    <div class="ribbon l-box-lrg pure-g">
+        <div class="l-box-lrg is-center pure-u-1 pure-u-md-1-2 pure-u-lg-2-5">
+            <img width="300" alt="File Icons" class="pure-img-responsive" src="/img/file-icons.png">
+        </div>
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
+
+            <h2 class="content-head content-head-ribbon">치료 상태</h2>
+
+            <p>
+              치료는 CO2를 포함하여 대기 중 온실 가스 (GHG) 수준을 낮추는 것을 의미합니다. 이 목표를 달성하는 방법에는 여러 가지가 있습니다. 한 가지 방법은 공장에서 배출되는 가스를 줄이는 것입니다. 다른 하나는 농부들이 대기에서 이산화탄소를 흡수하는 작물을 심는 것입니다. 다른 방법은 태양 전지판과 같은 &#34;녹색 에너지&#34;장치를 제조하는 것입니다.                
+	          </p>
+	  	   <div id="remediation_piechart_div"></div>
+
+        </div>
+    </div>
+
+<!-- -----------------[ Order Placement Form ] ----------------- -->
+
+
+    <div class="content">
+      <h2 class="content-head is-center">
+        주문하기
+      </h2>
+
+        <div class="pure-g">
+           
+            <div class="l-box-lrg pure-u-1 pure-u-md-3-5">
+                <h4>개요
+                </h4>
+                <p>
+                    특정 토큰을 기반으로 탄소 배출 시장을 구현합니다. 이 시장은 지역 (도시 또는 주 또는 기업)의 지역입니다. 국가 ETS 시장 및 다른 지역 시장-분산 시장 연합과 인터페이스 할 것입니다.
+                </p>
+
+                <h4>    시장 무결성 및 보안 
+                </h4>
+                <p>
+                  디자인 및 생산 단계에서 다양한 메커니즘이 시장의 무결성을 보장합니다. 사기를 방지하기위한 거래 흐름의 AI 패턴 인식. 토큰 경제 및 게임 이론을 검증하기위한 DES 시장 시뮬레이션. 이는 기존 KYC, AML 및 DID 기능을 기반으로 한 새로운 혁신입니다.
+                </p>
+            </div>
+
+
+             <div class="l-box-lrg pure-u-1 pure-u-md-2-5">
+                <form class="pure-form pure-form-stacked">
+                    <fieldset>
+
+                        <label for="name">구매 또는 판매
+                        </label>
+                        
+                        <select id="trade_order_buy_sell">
+                          <option value="none" disabled selected>구매 또는 판매</option>
+                          <option value="Buy">구입</option>
+                          <option value="Sell">팔다</option>                          
+                         </select>
+
+                    
+                        <label for="number_of_tokens">토큰 수
+                        </label>
+                        <input id="number_of_tokens" type="text" placeholder="토큰 수">
+
+                        <label for="price">토큰 당 가격</label>
+                        <input id="price" type="text" placeholder="토큰 당 가격">
+
+                        <label for="pin_code">PIN 코드</label>
+                        <input id="pin_code" type="password" placeholder="PIN 코드">
+
+                        <button type="submit" class="pure-button">
+                          주문
+                        </button>
+                    </fieldset>
+                </form>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+<!-- -----------------[ Open Modal ] ----------------- -->
+
+<!--
+<div id="modal">
+  <a href="#open-modal">Open Modal</a>
+  <p>
+      <a href="#open-modal" class="pure-button pure-button-primary">Login</a>
+  </p>
+
+  <div id="open-modal" class="modal-window">
+    <div>
+      <a href="#modal-close" title="Close" class="modal-close">close &times;</a>
+    
+      <div id="map_container">
+          <div id="korea_map"></div>
+      </div>
+      <script 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApqW4-8iMFxjlyLpFpH4YdgqVGuiDXlRg&callback=initMap">
+            </script>
+  </div>
+</div>
+-->
+
+<!-- -----------------[ End main content ] ----------------- -->
+
+
+<!-- -----------------[ Footer ] ----------------- -->
+
+
+<style>
+    .footer { background-color: #1f566d; color: #bbb; font-size: 11px; }
+</style>  
+    <div class="footer l-box is-center">
+          Ray Valdes, Dami An 및 Shan Zhong의 VeraChain 프로토 타입. 저작권 2020. 판권 소유.
+
+     
+    
+     </div>
+
+<!--
+<div class="pure-g">
+    <div class="pure-u-1-3"><p>Thirds</p></div>
+    <div class="pure-u-1-3"><p>Thirds</p></div>
+    <div class="pure-u-1-3"><p>Thirds</p></div>
+</div>
+-->
+
+
+</div>
+
+<!-- -----------------[ YUI Include ] ----------------- -->
+
+
+<script type='text/javascript' src="./javascript/yui_include.js"></script>
+
+<script>
+app.yui.use('node-base', 'node-event-delegate', function (Y) {
+    // This just makes sure that the href="#" attached to the <a> elements
+    // don't scroll you back up the page.
+    Y.one('body').delegate('click', function (e) {
+        e.preventDefault();
+    }, 'a[href="#"]');
+});
+</script>
+
+
+</body>
+</html>
+
+    

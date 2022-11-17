@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Web3 Login process with MetaMask</title>
+        <script src="https://cdn.ethers.io/lib/ethers-5.6.4.umd.min.js" type="application/javascript"></script>
+        <script>
+            function web3_check_metamask() {
+                if (!window.ethereum) {
+                    console.error('It seems that the MetaMask extension is not detected. Please install MetaMask first.');
+                    alert('It seems that the MetaMask extension is not detected. Please install MetaMask first.');
+                    return false;
+                }else{
+                    console.log('MetaMask extension has been detected!!');
+                    return true;
+                }
+            }
+            
+            function web3_metamask_hash(){
+                var hashed_string   = '';
+                var chars           = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+                var total_chars     = chars.length;
+                for ( var i = 0; i < 256; i++ ) {
+                    hashed_string += chars.charAt(Math.floor(Math.random() * total_chars));
+                }
+                return hashed_string;                
+            }
+            
+            async function web3_metamask_login() {
+                // Check first if the user has the MetaMask installed
+                if ( web3_check_metamask() ) {
+                    console.log('Initate Login Process');
+
+                    // Get the Ethereum provider
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);                    
+                    // Get Ethereum accounts
+                    await provider.send("eth_requestAccounts", []);
+                    console.log("Connected!!"); 
+                    // Get the User Ethereum address
+                    const address = await provider.getSigner().getAddress();
+                    console.log(address);      
+
+                    // Create hashed string 
+                    const hashed_string = web3_metamask_hash();      
+                    console.log("Hashed string: " + hashed_string);   
+                    // Request the user to sign it
+                    const signature = await provider.getSigner().signMessage(hashed_string);
+                    // Got the signature
+                    console.log("The signature: " + signature);   
+
+                    // TODO
+                    // you can then send the signature to the webserver for further processing and verification 
+                }
+            }              
+        </script>
+    </head>
+    <body>
+        
+<style>
+    body {
+        background-color: #E3ABC6;
+        XXX-background-color: #F3EBF6;
+        font-family: 'Ubuntu', sans-serif;
+    }
+    
+       .infohead {
+        color: #AA558C;
+        font-size: 16px;
+      margin-left:  10%;
+
+    }
+    
+ 
+    .main {
+        background-color: #FFFFFF;
+        width: 400px;
+        height: 400px;
+        xxx-margin: 7em auto;
+        margin: 2em auto;
+        border-radius: 1.5em;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    }
+    
+    .sign {
+        XXX-padding-top: 40px;
+        padding-top: 15px;
+        XXX-color: #8C55AA;
+        color: #AA558C;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: bold;
+        font-size: 23px;
+    }
+    
+     .subhead {
+        padding-top: 10px;
+        color: #AA558C;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    
+    .un {
+    width: 76%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin-bottom: 50px;
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 27px;
+    font-family: 'Ubuntu', sans-serif;
+    }
+    
+    form.form1 {
+        padding-top: 10px;
+    }
+    
+    .pass {
+            width: 76%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin-bottom: 50px;
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 27px;
+    font-family: 'Ubuntu', sans-serif;
+    }
+    
+   
+    .un:focus, .pass:focus {
+        border: 2px solid rgba(0, 0, 0, 0.18) !important;
+        
+    }
+    
+    .submit {
+      cursor: pointer;
+        border-radius: 5em;
+        color: #fff;
+        XXX-background: linear-gradient(to right, #9C27B0, #E040FB);
+        XXX2-background: #B0279C;
+        XXX3-background: linear-gradient(to right, #27809C, #40B0E0);
+        background: linear-gradient(to right, #8C27B0, #C040FB);
+        border: 0;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        font-family: 'Ubuntu', sans-serif;
+        xxx-margin-left: 35%;
+        font-size: 13px;
+        box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+  
+    }
+  
+  .center {
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left:  20%;
+  margin-right:  20%;
+ }
+ .small {
+    font-size: 8px;
+  }  
+
+   .medium {
+    font-size: 11px;
+  }  
+
+.fontlarge
+{
+    font-size: 18px;
+}
+    .forgot {
+        text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+        color: #E1BEE7;
+        xxx-padding-top: 15px;
+        padding-top: 5px;
+        font-size:  9px;
+    }
+    
+    a {
+        text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+        color: #E1BEE7;
+        text-decoration: none
+    }
+    
+    @media (max-width: 600px) {
+        .main {
+            border-radius: 0px;
+        }
+</style>
+
+    <script>
+
+    function showEnglish() {
+      document.getElementById("content_EN").style.display = "block";
+      document.getElementById("content_CN").style.display = "none";
+      document.getElementById("content_SP").style.display = "none";
+      document.getElementById("content_KR").style.display = "none";      
+      document.getElementById("content_FR").style.display = "none";            
+    }
+
+      function showSpanish() {
+      document.getElementById("content_SP").style.display = "block";
+      document.getElementById("content_EN").style.display = "none";
+      document.getElementById("content_CN").style.display = "none";
+      document.getElementById("content_KR").style.display = "none";      
+      document.getElementById("content_FR").style.display = "none";            
+    }
+
+      function showChinese() {
+      document.getElementById("content_CN").style.display = "block";
+      document.getElementById("content_EN").style.display = "none";
+      document.getElementById("content_SP").style.display = "none";
+      document.getElementById("content_KR").style.display = "none";      
+      document.getElementById("content_FR").style.display = "none";            
+    }
+
+      function showKorean() {
+      document.getElementById("content_KR").style.display = "block";
+      document.getElementById("content_EN").style.display = "none";
+      document.getElementById("content_SP").style.display = "none";
+      document.getElementById("content_CN").style.display = "none";            
+      document.getElementById("content_FR").style.display = "none";                  
+    }
+
+        function showFrench() {
+      document.getElementById("content_FR").style.display = "block";
+      document.getElementById("content_EN").style.display = "none";
+      document.getElementById("content_SP").style.display = "none";
+      document.getElementById("content_CN").style.display = "none";            
+      document.getElementById("content_KR").style.display = "none";                  
+    }
+
+    </script>
+<div class="infohead fontlarge">
+FutureSense Multi-Lingual Web3 Login <a href="#!" onclick="web3_check_metamask();">PoC
+</a>
+</div>
+
+
+
+  <div class="main">
+
+
+<div align="center" style="padding-top:10px;">
+    <button type="button" onclick="showEnglish()">English</button>
+    <button type="button" onclick="showChinese()">中文</button>
+    <button type="button" onclick="showKorean()">한국어</button>
+    <button type="button" onclick="showSpanish()">Español</button>
+    <button type="button" onclick="showFrench()">Français</button>
+</div>
+  
+
+
+    <div id="content_EN">
+        <p class="sign" align="center">Sign in</p>
+        <form class="form1">
+          <input class="un " type="text" align="center" placeholder="Username">
+          <input class="pass" type="password" align="center" placeholder="Password">
+        <a class="submit center">Sign in with password</a>
+
+      <p class="forgot center small"><a href="#">Forgot Password?</p>   
+      <hr/>
+    <a class="submit center" onclick="web3_metamask_login();">
+    Sign in with Wallet</a>
+     
+    </form>
+    </div>
+
+    <div id="content_CN" style="border:0px solid;color:#eee;display:none;">
+          <p class="sign" align="center">登入</p>
+    <form class="form1">
+      <input class="un " type="text" align="center" placeholder="用户名">
+      <input class="pass" type="password" align="center" placeholder="密码">
+      <a class="submit center">使用密码登录</a>
+
+      <p class="forgot center small"><a href="#">忘记密码？</p>   
+      <hr/>
+    <a class="submit center" onclick="web3_metamask_login();">
+    使用钱包登录</a>
+  </form>
+    </div>
+
+    <div id="content_SP" style="border:0px solid;color:#eee; display:none;">
+          <p class="sign" align="center">Iniciar sesión</p>
+    <form class="form1">
+      <input class="un " type="text" align="center" placeholder="Nombre de usuario">
+      <input class="pass" type="password" align="center" placeholder="Contraseña">
+     <a class="submit center medium">Iniciar sesión con contraseña</a>
+
+      <p class="forgot center small"><a href="#">¿Has olvidado tu contraseña?</p>   
+      <hr/>
+    <a class="submit center medium" onclick="web3_metamask_login();">
+    Iniciar sesión con billetera.</a>
+    </form>
+     </div>
+
+
+    <div id="content_KR" style="border:0px solid;color:#eee; display:none;">
+          <p class="sign" align="center">로그인</p>
+    <form class="form1">
+      <input class="un " type="text" align="center" placeholder="사용자 이름">
+      <input class="pass" type="password" align="center" placeholder="비밀번호">
+    <a class="submit center">비밀번호로 로그인</a>
+
+      <p class="forgot center small"><a href="#">비밀번호를 잊어버렸나요?</p>   
+      <hr/>
+    <a class="submit center" onclick="web3_metamask_login();">
+    지갑으로 로그인</a>
+   </form>
+    </div>
+
+    <div id="content_FR" style="border:0px solid;color:#eee; display:none;">
+          <p class="sign" align="center">Connectez</p>
+    <form class="form1">
+      <input class="un " type="text" align="center" 
+      placeholder="Nom d'utilisateur">
+      <input class="pass" type="password" align="center" 
+      placeholder="Mot de passe">
+    <a class="submit center medium">Connectez avec mot de passe</a>
+
+      <p class="forgot center small"><a href="#">Mot de passe oublié?</p>   
+      <hr/>
+    <a class="submit center medium" onclick="web3_metamask_login();">Connectez avec portefeuille</a>
+    </form>
+    </div>
+
+</div>
+
+
+    </body>
+</html>

@@ -1,4 +1,20 @@
+______________________________
+
+##### RAY_NOTES.TXT  #########
+______________________________
+
 Sun Nov  6 09:32:02 PST 2022
 /Users/rayval/z_DEV/dev_TEZOS/tz3_multilingual_login/multilingual_login
 /Users/rayval/z_DEV/dev_TEZOS/tz3_multilingual_login/multilingual_login
 Wed Nov 16 23:17:30 PST 2022
+
+______________________________
+
+Wed Nov 16 23:34:14 PST 2022
+/Users/rayval/z_DEV/dev_TEZOS/tz3_multilingual_login/multilingual_login
+PBOOK5
+
+______________________________
+
+Sat Nov 19 08:44:29 PST 2022
+/Users/rayval/z_DEV/dev_TEZOS/tz3_multilingual_login/multilingual_login

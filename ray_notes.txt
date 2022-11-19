@@ -18,3 +18,4 @@ ______________________________
 
 Sat Nov 19 08:44:29 PST 2022
 /Users/rayval/z_DEV/dev_TEZOS/tz3_multilingual_login/multilingual_login
+Rays-FS-Mac-Cinco.local

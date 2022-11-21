@@ -19,3 +19,15 @@ ______________________________
 Sat Nov 19 08:44:29 PST 2022
 /Users/rayval/z_DEV/dev_TEZOS/tz3_multilingual_login/multilingual_login
 Rays-FS-Mac-Cinco.local
+Rays-MacBook-Pro.local
+Sun Nov 20 09:41:38 PST 2022
+/Users/rayval/z_DEV/dev_TEZOS/MILESTONE3_Projects/tz3_multilingual_wallet/tz3-multilingual-login_v2
+
+
+_______________________________
+
+Rays-MacBook-Pro.local
+Sun Nov 20 09:44:49 PST 2022
+/Users/rayval/z_DEV/dev_TEZOS/MILESTONE3_Projects/tz3_multilingual_wallet/tz3-multilingual-login_v2
+
+

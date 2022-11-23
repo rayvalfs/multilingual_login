@@ -2,12 +2,13 @@ ______________________________
 
 ##### RAY_NOTES.TXT  #########
 ______________________________
+REPO: https://github.com/rayvalfs/multilingual_login
+
+______________________________
 
 Sun Nov  6 09:32:02 PST 2022
 /Users/rayval/z_DEV/dev_TEZOS/tz3_multilingual_login/multilingual_login
-/Users/rayval/z_DEV/dev_TEZOS/tz3_multilingual_login/multilingual_login
 Wed Nov 16 23:17:30 PST 2022
-
 ______________________________
 
 Wed Nov 16 23:34:14 PST 2022
@@ -19,18 +20,18 @@ ______________________________
 Sat Nov 19 08:44:29 PST 2022
 /Users/rayval/z_DEV/dev_TEZOS/tz3_multilingual_login/multilingual_login
 Rays-FS-Mac-Cinco.local
-Rays-MacBook-Pro.local
+
+______________________________
+
 Sun Nov 20 09:41:38 PST 2022
 /Users/rayval/z_DEV/dev_TEZOS/MILESTONE3_Projects/tz3_multilingual_wallet/tz3-multilingual-login_v2
-
+Rays-MacBook-Pro.local
 
 _______________________________
 
 Rays-MacBook-Pro.local
 Sun Nov 20 09:44:49 PST 2022
 /Users/rayval/z_DEV/dev_TEZOS/MILESTONE3_Projects/tz3_multilingual_wallet/tz3-multilingual-login_v2
-
-
 
 _______________________________
 

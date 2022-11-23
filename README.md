@@ -1,8 +1,8 @@
-# Multilingual Decentralized Login 
+# Multilingual Decentralized Login #
 
 This is a multilingual version of the decentralized login form.
 
-## Purpose
+## Purpose ##
 
 The goal is to illustrate how to support multiple languages on a login form. In this cases the languages are:
 - Chinese
@@ -11,16 +11,15 @@ The goal is to illustrate how to support multiple languages on a login form. In 
 - Korean
 - Spanish
 
-## Background
+## Background ##
 
 This is part of a project by FutureSense for the National Police Agency big data portal.
-
 
 A previous version of this system used DID (Decentralized Identity) protocols, but these protocols are rather complex, both for developers and for users.
 
 This version narrowed the scope to *login with Web3 wallet* rather than login with DID. The wallet chosen for this initial version was Metamask, because it is by far the dominant wallet (among 200 wallets in the sector), with around 90% market share (about 30+ million users).
 
-## Constraints
+## Constraints ##
 
 The objective here was to create a login form using only HTML, CSS and Javascript, with no other dependencies, so that this form can be easily incorporated into a larger, more complex system. 
 
@@ -28,15 +27,37 @@ There were two previous versions of this system:
 1. DID Login with Springboot
 2. DID Login with JSP
 
-Both of these proved challenging for the portal team to incorporate into the portal.
+At the time, both of these proved challenging for the portal team to incorporate into the portal. Hence we followed a more constrained approach.
 
-## How it Works
+## Running the Example ##
+
+As mentioned, everything is in just one HTML file *index.html*.
+
+To run the example, fire up an HTTP Server to serve that file.
+
+There are many ways to do this, for example: using Apache, Nginx, Rebex (Windows), Spark (Go), tiny_http (Rust), Acme.Serve (Java), thttpd (C).
+
+The easiest way is to use SimpleHTTPServer (Python).
+
+Assuming you have python installed on your machine, then change directory to where *index.html* is located and type
+
+    python -m SimpleHTTPServer
+
+By default this server will listen on localhost port 8000.
+
+Therefore point your browser to *http://localhost:8000*
+
+## How the Code Works ##
 
 There are 2 simple techniques used.
+
 1. CSS-Based: using visibility of a DIV controlled by CSS style attribute
 2. Javascript: using a Javascript object consisting key/value pairs 
 
+These are described further below.
+
 ### DIV and CSS technique ###
+
 For on-page content in HTML, there are multiple DIVs, one for each language, with IDs that indicate the content as follows:
 
 1. **content_EN** : English
@@ -45,11 +66,11 @@ For on-page content in HTML, there are multiple DIVs, one for each language, wit
 4. **content_KR** : Korean
 5. **content_CN** : Chinese
 
-Each DIV containsc content in that language. Initially the DEV with the default language (content_EN) is displayed (using CSS *display:"block"*) and the others have the display attribute set to "none".
+Each DIV contains content in that language. Initially the DEV with the default language (content_EN) is displayed (using CSS *display:"block"*) and the others have the display attribute set to "none".
 
 There are HTML buttons at the top of the form to select one of the five supported langauges.
 
-These toggle the visibility of the various DIVs in order to display the selected language.
+Javascript code associated with the buttons toggles the visibility of the various DIVs in order to display the selected language.
 
 ### Javascript object with key/value pairs  ###
 
@@ -77,7 +98,16 @@ FYI, here is a link to the m4 macro processor:
 
     https://www.gnu.org/software/m4/manual/m4.html
 
+### Future Directions ###
 
+As mentioned earlier, this code does not have a back-end system to handle:
+
+1. the Web2 authentication with username/password (which requires storing 
+this data in a backend database)
+
+2. the continuation of the Web3 decentralized authentication scenario beyond the invoking the user crypto-wallet and using the wallet to sign an arbitrary text string to prove ownership of the private key associated with the wallet.
+
+Future versions of this system will add an example Web2 backend (using SQLite) and example Web3 processing.
 
 
 

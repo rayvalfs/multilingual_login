@@ -5,10 +5,29 @@
         <title>Web3 Login process with MetaMask</title>
         <script src="https://cdn.ethers.io/lib/ethers-5.6.4.umd.min.js" type="application/javascript"></script>
         <script>
+            let current_language = "EN";
+            const msg_not_installed =
+            {
+                EN: "MetaMask extension is not detected. Please install MetaMask first. [EN]",
+                SP: "No se detecta la extensión MetaMask. Instale MetaMask primero. [SP]",
+                KR: "MetaMask 확장이 감지되지 않습니다. 메타마스크를 먼저 설치해주세요. [KR]",
+                CN: "未检测到 MetaMask 扩展。 请先安装 MetaMask。 [CN]",
+                FR: "L'extension MetaMask n'est pas détectée. Veuillez d'abord installer MetaMask. [FR]"
+            };
+
+             const msg_already_processing =
+            {
+                EN: "Already processing Metamask request. Please click on extension icon in browser to view Metamaks. [EN]",
+                SP: "Ya se está procesando la solicitud de Metamask. Haga clic en la extensión en el navegador para ver Metamask. [SP]",
+                KR: "이미 메타마스크 요청을 처리 중입니다. 메타마스크를 보려면 브라우저에서 확장 프로그램을 클릭하십시오.[KR]",
+                CN: "正在处理 Metamask 请求。请在浏览器中单击扩展以查看 Metamask。 [CN]",
+                FR: "Traitement déjà de la demande Metamask. Veuillez cliquer sur l'extension dans le navigateur pour afficher Metamask.[FR]"
+            };
+
             function web3_check_metamask() {
                 if (!window.ethereum) {
                     console.error('It seems that the MetaMask extension is not detected. Please install MetaMask first.');
-                    alert('It seems that the MetaMask extension is not detected. Please install MetaMask first.');
+                    alert(msg_not_installed[current_language]);
                     return false;
                 }else{
                     console.log('MetaMask extension has been detected!!');
@@ -26,16 +45,59 @@
                 return hashed_string;                
             }
             
+
+            async function connect(provider) {
+                provider
+                .request({ method: 'eth_requestAccounts' })
+                .then(handleAccountsChanged)
+                .catch((error) => {
+                  if (error.code === 4001) {
+                    // EIP-1193 userRejectedRequest error
+                    console.log('Please connect to MetaMask.');
+                  } else {
+                    console.error(error);
+                  }
+                });
+            }
+
+            let error_processing = false;
+
             async function web3_metamask_login() {
+                error_processing = false;
                 // Check first if the user has the MetaMask installed
                 if ( web3_check_metamask() ) {
-                    console.log('Initate Login Process');
+                    console.log('Initiate Login Process');
 
                     // Get the Ethereum provider
                     const provider = new ethers.providers.Web3Provider(window.ethereum);                    
                     // Get Ethereum accounts
-                    await provider.send("eth_requestAccounts", []);
+
+                    //await provider.send("eth_requestAccounts", []);
+                    await provider
+                        .send("eth_requestAccounts", [])
+                        .catch((error) => {
+                            error_processing = true;
+                          if (error.code === 4001) {
+                            // EIP-1193 userRejectedRequest error
+                            console.log('Please connect to MetaMask.');
+                          } 
+                          else if (error.code=== -32002) {
+                            alert(msg_already_processing[current_language]);
+                            console.log('Already processing.');
+                          }
+                          else  {
+                            console.log("Error!!!");
+                            console.error(error);
+                        }
+                    });
+                    if(error_processing) 
+                    {
+                        console.log("Exit login");
+                        return;
+                    }
+
                     console.log("Connected!!"); 
+
                     // Get the User Ethereum address
                     const address = await provider.getSigner().getAddress();
                     console.log(address);      
@@ -211,6 +273,7 @@
     <script>
 
     function showEnglish() {
+        current_language = "EN";
       document.getElementById("content_EN").style.display = "block";
       document.getElementById("content_CN").style.display = "none";
       document.getElementById("content_SP").style.display = "none";
@@ -219,6 +282,7 @@
     }
 
       function showSpanish() {
+                current_language = "SP";
       document.getElementById("content_SP").style.display = "block";
       document.getElementById("content_EN").style.display = "none";
       document.getElementById("content_CN").style.display = "none";
@@ -227,6 +291,7 @@
     }
 
       function showChinese() {
+                current_language = "CN";
       document.getElementById("content_CN").style.display = "block";
       document.getElementById("content_EN").style.display = "none";
       document.getElementById("content_SP").style.display = "none";
@@ -235,6 +300,7 @@
     }
 
       function showKorean() {
+                current_language = "KR";
       document.getElementById("content_KR").style.display = "block";
       document.getElementById("content_EN").style.display = "none";
       document.getElementById("content_SP").style.display = "none";
@@ -243,6 +309,7 @@
     }
 
         function showFrench() {
+                    current_language = "FR";
       document.getElementById("content_FR").style.display = "block";
       document.getElementById("content_EN").style.display = "none";
       document.getElementById("content_SP").style.display = "none";

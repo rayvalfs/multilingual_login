@@ -77,9 +77,9 @@ FYI, here is a link to the m4 macro processor:
 
     https://www.gnu.org/software/m4/manual/m4.html
 
-### For further information ###
 
-We welcome your comments at raysms@gmail.com
+
+
 
 
 

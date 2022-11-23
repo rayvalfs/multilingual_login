@@ -62,5 +62,26 @@ There is a selector variable *current_language* that is set when the language bu
 Then, when the code needs to output a message in a language, it does something like:
 
     alert(msg_not_installed[current_language]);
+or
+    alert(msg_wallet_busy[current_language]);
+
+### Limitations of these techniques ###
+
+These techniques are simple and they work. They are a good choice for a narrow scope or small number of pages. They will not scale to a large amount of content.
+
+There are other well established techniques that are more complex, such as using properties and creating parallel folders with content.
+
+An in-between technique that also works is to have parallel files that are redirected by javascript code in response to button action. These parallel files can be driven by plain text files and macro variables (such as the ubiquitous m4 macro processor). Having all the content in plain text files makes it easy to process. For example, running through Google translate. Google translate will leave alone long variable names and translate the actual content. 
+
+FYI, here is a link to the m4 macro processor:
+
+    https://www.gnu.org/software/m4/manual/m4.html
+
+### For further information ###
+
+We welcome your comments at raysms@gmail.com
 
 
+
+
+#### This file is at https://github.com/rayvalfs/multilingual_login/README.md ####
